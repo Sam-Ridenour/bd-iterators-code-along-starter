@@ -47,7 +47,7 @@ public class AddamsFamilyApplication {
         /********************************************************************************************
          * List of Addams Family members
          ********************************************************************************************/
-        private List<Person> theAddamsFamily;
+        private List<Person> theAddamsFamily;          // Application data store
 
         /********************************************************************************************
          * Constructor for this application
@@ -70,42 +70,42 @@ public class AddamsFamilyApplication {
         ********************************************************************************************/
             while(shouldLoop) {
                  try {
-                        whatTheyChose = displayMenuAndGetResponse();          // Display main menu and get response
-                        System.out.println("\nYou chose: " + whatTheyChose);  // Display menu option chosen
+                        whatTheyChose = displayMenuAndGetResponse();           // Display main menu and get response
+                        System.out.println("\nYou chose: " + whatTheyChose);   // Display menu option chosen
 
-                        switch (whatTheyChose) {                              // Process based on menu option chosen
-                                case DISPLAY_ALL_ADDAMS_OPTION: {
-                                     displayAllPeople();
-                                     break;
+                        switch (whatTheyChose) {                               // Process based on menu option chosen
+                                case DISPLAY_ALL_ADDAMS_OPTION: {              // If this menu item is chosen...
+                                     displayAllPeople();                       //     Run this helper method
+                                     break;                                    //         and exit switch
                                  }
-                                 case DISPLAY_BY_NAME_OPTION: {
-                                      displayByName();
-                                      break;
+                                 case DISPLAY_BY_NAME_OPTION: {                // If this menu item is chosen...
+                                      displayByName();                         //     Run this helper method
+                                      break;                                   //         and exit switch
                                  }
-                                 case CHANGE_AN_ADDAMS_NAME_OPTION: {
-                                      changePersonName();
-                                      break;
+                                 case CHANGE_AN_ADDAMS_NAME_OPTION: {           // If this menu item is chosen...
+                                      changePersonName();                       //     Run this helper method
+                                      break;                                    //         and exit switch
                                  }
-                                case REMOVE_AN_ADDAMS_OPTION: {
-                                     removeAnAddams();
-                                     break;
+                                case REMOVE_AN_ADDAMS_OPTION: {                 // If this menu item is chosen...
+                                     removeAnAddams();                          //     Run this helper method
+                                     break;                                     //         and exit switch
                                 }
-                                case DISPLAY_ADDAMS_IN_REVERSE_ORDER: {
-                                     displayAllInReverseOrder();
-                                     break;
+                                case DISPLAY_ADDAMS_IN_REVERSE_ORDER: {         // If this menu item is chosen...
+                                     displayAllInReverseOrder();                //     Run this helper method
+                                     break;                                     //         and exit switch
                                 }
-                                case ADD_A_NEW_ADDAMS: {
-                                     addANewAddams();
-                                     break;
+                                case ADD_A_NEW_ADDAMS: {                         // If this menu item is chosen...
+                                     addANewAddams();                            //     Run this helper method
+                                     break;                                      //         and exit switch
                                 }
-                                case REFRESH_DATA_FROM_FILE: {
-                                     theAddamsFamily.removeAll(theAddamsFamily);  // Remove all app data structure current entries
-                                     loadFamilyMembersFromFile();                 // Reload app data structure
-                                     break;
+                                case REFRESH_DATA_FROM_FILE: {                   // If this menu item is chosen...
+                                     theAddamsFamily.removeAll(theAddamsFamily); //     Remove all app data structure current entries
+                                     loadFamilyMembersFromFile();                //     Reload app data structure
+                                     break;                                      //         and exit switch
                                 }
-                                 case EXIT_OPTION: {
-                                      shouldLoop = false;
-                                      break;
+                                 case EXIT_OPTION: {                             // If this menu item is chosen...
+                                      shouldLoop = false;                        //     Set loop to end
+                                      break;                                     //         and exit switch
                                  }
                                  default: {    // if somehow an unexpected option was returned - throw an exception
                                          throw new InvalidMenuResponseException("Invalid menu option " + whatTheyChose + " entered: ");
@@ -151,13 +151,14 @@ public class AddamsFamilyApplication {
         ********************************************************************************************/
         public void startOfApplicationProcessing() throws FileNotFoundException{
 
+                // Since System.out writes to screen and System.err writes to screen
+                //                                       unless you assign it a file
                 // Direct error messages to a file rather than the screen
                 //    to avoid the intermingling of program output messages
 
-                // Define a PrintStream file to hold error messages
+                // 1. Define a PrintStream file to hold error messages
                 PrintStream fileProcessingErrorLogFile = new PrintStream("fileProcessingError.log");
-                // Tell the system to use that file for anything writing to System.err object
-                // System.out writes to screen, System.err writes to screen unless you assign it a file
+                // 2. Tell the system to use that file for anything writing to System.err object
                 System.setErr(fileProcessingErrorLogFile);
 
                 System.out.println(Emogis.BLACK_SPIDER_WITH_EIGHT_LEGS.repeat(40));
@@ -195,7 +196,7 @@ public class AddamsFamilyApplication {
                 System.out.println("\n"+ (borderIcon + " ").repeat(13)) ;
         }
         /********************************************************************************************
-         * Display selected entries from data structure holding application data
+         * Display selected entries from application data store
          ********************************************************************************************/
         public void displayByName() {
 
@@ -215,7 +216,7 @@ public class AddamsFamilyApplication {
                 }
         }
         /********************************************************************************************
-         * Allow user to change the name of selected entries in the data structure
+         * Allow user to change the name of selected entries in the data store
          ********************************************************************************************/
         public void changePersonName() {
                 // Hold entries to be changed
@@ -254,7 +255,7 @@ public class AddamsFamilyApplication {
 
         }
         /********************************************************************************************
-         * Allow user to remove selected entries in the data structure
+         * Allow user to remove selected entries in the data store
          ********************************************************************************************/
         public void removeAnAddams() {
                 // Hold entries to be changed
@@ -282,9 +283,9 @@ public class AddamsFamilyApplication {
                         String deleteResponse = userKeyboardDevice.nextLine().strip().toUpperCase();
 
                         if (deleteResponse.startsWith("Y")) {             // If user wants to delete entry...
-                                if (theAddamsFamily.remove(anAddams)) {   //    remove it from the data structure
-                                    removeIterator.remove();              //       adn from the extracted entries
-                                    // aListOfAddams.remove(anAddams);       //       and from the extracted entries
+                                if (theAddamsFamily.remove(anAddams)) {   //    remove it from the data store
+                                    removeIterator.remove();              //       and from the extracted entries
+                                    // aListOfAddams.remove(anAddams);    //       replaced by iterator .remove()
                                     System.out.println("----- Removal of " + anAddams.getName() + " was successful");
                                 } else {                                  // if user does not want to delete entry...
                                     System.out.println("----- Removal of " + anAddams.getName() + " failed");
@@ -293,25 +294,25 @@ public class AddamsFamilyApplication {
                 }
         }
         /********************************************************************************************
-         * Obtain search criteria for extacting entries from the data structure
+         * Obtain search criteria for extracting entries from the data store
          ********************************************************************************************/
         public AddamsSearchCriteria solicitAddamsSearchCriteria() {
                 String response = "";                // Hold response from user
-                String personToFind = "";            // Hold neme of entry to find
+                String personToFind = "";            // Hold name of entry to find
                 boolean wantsCaseSensitiveSearch;    // Hold if search should be case sensitivity
 
                 System.out.println("\nPlease enter part or all of the person would like to find");
-                response = userKeyboardDevice.nextLine();                                          // Get response from user
-                personToFind = response.strip();                                                   // Remove extraneous spaces
+                response = userKeyboardDevice.nextLine();     // Get response from user
+                personToFind = response.strip();              // Remove extraneous spaces
 
                 System.out.println("\nWould you like the search to be case sensitive? (Y or N) - default is No");
-                response = userKeyboardDevice.nextLine();       // Get response from user
+                response = userKeyboardDevice.nextLine();      // Get response from user
 
-                if (response.toUpperCase().startsWith("Y")) {  // if user wants case sensitive search...
-                        wantsCaseSensitiveSearch = true;       //    set case sensitive search indicator to true
+                if (response.toUpperCase().startsWith("Y")) {  // if user wants case-sensitive search...
+                        wantsCaseSensitiveSearch = true;       //    set case-sensitive search indicator to true
                 }
-                else {                                          // if user does not wants case sensitive search..
-                        wantsCaseSensitiveSearch = false;       //    set case senitive search indicator to false
+                else {                                          // if user does not wants case-sensitive search..
+                        wantsCaseSensitiveSearch = false;       //    set case-sensitive search indicator to false
                 }
                 // Return search criterial object
                 return new AddamsSearchCriteria(personToFind, wantsCaseSensitiveSearch);
@@ -360,7 +361,7 @@ public class AddamsFamilyApplication {
                 Person foundPerson = null;                       // Hold entry found in application data structure
 
                 for(Person currentAddams : theAddamsFamily) {    // Loop through application data structure
-                        if (currentAddams.getId() == requestedPersonId) { // if current entry id = requested Id
+                        if (currentAddams.getId() == requestedPersonId) { // if current entry id = requested id
                                 foundPerson = currentAddams;              //    remember it
                                 break;                                    //    and exit loop
                         }
@@ -385,7 +386,7 @@ public class AddamsFamilyApplication {
                                         break;                            //                             and exit switch
                                 case "true":                              //      if case sensitivity requested, compare values as is
                                         if (currentAddams.getName().contains(requestedPersonName)) {
-                                                personFound = true;       //      if entry isfound - indicate so
+                                                personFound = true;       //      if entry is found - indicate so
                                         }
                                         break;                            //                         and exit switch
 
@@ -400,35 +401,31 @@ public class AddamsFamilyApplication {
          * Display all entries in the data structure in reverse
          ********************************************************************************************/
         public void displayAllInReverseOrder() {
-                // TODO: Add code to implement this feature
-                // System.out.println("\n" + "-".repeat(60) +"\n----- Sorry, this feature has not been implemented yet -----\n"
-                //                        + "-".repeat(60) + "\n");
+
                 // Use a ListIterator to process the List in reverse order
                 //
                 // When defining a ListIterator you need to tell it where to start
-                //      if going forward - start at the first element - .listIterator()
-                //      if going backward - start at the last element - .listIterator(position-to-start)
+                //      if going forward  - start at the first element - .listIterator()
+                //      if going backward - start at the last element  - .listIterator(position-to-start)
 
                 // Whenever you see the word 'position', think like a human: last element is listname.size()
                 //                                       start counting at 1
                 // Whenever you see the word 'index', think like a computer: last element is listname.size() - 1
                 //                                       start counting at 0
 
-
                 ListIterator<Person> personListIterator = theAddamsFamily.listIterator(theAddamsFamily.size());
                 while(personListIterator.hasPrevious()) {                     // Loop while there is previous object
-                        Person anotherAddams = personListIterator.previous(); // Retrieve the previous object
-                        System.out.println(anotherAddams);
+                        Person anotherAddams = personListIterator.previous(); //     Retrieve the previous object
+                        System.out.println(anotherAddams);                    //     and process it
                 }
-
-
-
         }
         /********************************************************************************************
-         * Add an new Addams to the family
+         * Code-Along Project
+         *
+         * Add a new Addams to the family
          ********************************************************************************************/
         public void addANewAddams() {
-                // TODO: Add code to implement this feature
+                // Code-Along TODO: Add code to implement this feature
                 System.out.println("\n" + "-".repeat(60) +"\n----- Sorry, this feature has not been implemented yet -----\n"
                                         + "-".repeat(60) + "\n");
         }

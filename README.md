@@ -1,37 +1,20 @@
-#Iterators Guided Project
+# Iterators - Code-Along
 
-This project contains several loops which we will replace with Iterators.
+This activity will be walked through by your instructor.
 
-The project throws a ***ConcurrentModificationException*** which we will eliminate using Iterators.
+**Your participation is critical to your understanding**, so please respond when asked by the instructor and ask any questions you may have immediately.
 
-We will implement additional functionality using ***ListIterators<>***.
+Please do not be afraid to ask questions.  Chances are very good that others have the same and/or similar questions and are bashful about asking.  They will appreciate your asking the question.
 
-##Iterators
+This activity will add code to an existing class that will implement it as a subclass of the [PlayingCard class](https://github.com/BloomTechBackend/bd-inheritance-code-along-starter/blob/main/src/com/frank/model/PlayingCard.java#L1-L90) used in the Inheritance Guided Project
 
-Iterators provide:
+Successful completion will be when all we have successfully implemented the subclass and are able to use it and its methods in an application program.
 
-1. an alterative to for-loops to go through an entire Collection class linear data structure.
-2. a way to safely add and remove elements while iterating through a collection.
+## Requirements
 
-##Iterator Methods
-The iterator includes three methods that help us traverse a collection:
+- IntelliJ with Java 11
+- If you're running the code from your terminal, make sure you have Java 11 installed on your machine (not just in IntelliJ)
 
-- **hasNext()**: returns true if the iterator has at least one more element to iterate through.
+## Set Up
 
-- **next()**: returns the next element in the collection as long as *hasNext()* is true and throws a ***NoSuchElementException*** if *hasNext()* is false.
-
-- **remove()**: removes the current element in the collection and throws an ***IllegalStateException*** if the method is called again after it's already removed the current element.
-
-##ListIterator
-
-The *ListIterator<>* is an Iterator which provides additional functionality when working with *List<>* classes. It allows you to traverse the list forward or backward and the ability to add and update elements in the list, in addition to the other iterator methods.
-
-The *ListIterator<>* includes the following methods to help us traverse a list:
-
-- **hasNext()**: returns true if the iterator has at least one more element to iterate through.
-- **next()**: returns the next element in the collection as long as *hasNext()* is true and throws a ***NoSuchElementException*** if *hasNext()* is false.
-- **remove()**: returns the next element in the collection as long as *hasNext()* is true and throws a ***NoSuchElementException*** if *hasNext()* is false.
-- **add(element)**: inserts an object immediately before the current cursor position. The element must be the type that the iterator has said it holds.
-- **set(element)**: replaces (updates) the last element returned by next() and throws an IllegalStateException if the method is called before an element has been returned by next().
-- **hasPrevious()**: returns true if the iterator has at least one more previous element to iterate through.
-- **previous()**:  returns the next element in the collection as long as *hasPrevious()* is true and throws a ***NoSuchElementException*** if *hasPrecious()* is false.
+- Clone this repo and open it's project folder in IntelliJ.
