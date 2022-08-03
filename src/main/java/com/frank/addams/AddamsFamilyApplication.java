@@ -422,7 +422,7 @@ public class AddamsFamilyApplication {
         /********************************************************************************************
          * Code-Along Project
          *
-         * Add a new Addams to the family
+         * Add a new Addams to the List data store before an existing existing entry in the List
          ********************************************************************************************/
         public void addANewAddams() {
                 // Code-Along TODO: Add code to implement this feature
