@@ -161,7 +161,7 @@ public class AddamsFamilyApplication {
                 // 2. Tell the system to use that file for anything writing to System.err object
                 System.setErr(fileProcessingErrorLogFile);
 
-                System.out.println(Emogis.BLACK_SPIDER_WITH_EIGHT_LEGS.repeat(40));
+                System.out.println(Emogis.ALIEN_MONSTER.repeat(40));
                 System.out.printf("%1s %s \n", Emogis.BLACK_SPIDER_WITH_EIGHT_LEGS,"Welcome to the Addams Family app!");
                 System.out.println(Emogis.BLACK_SPIDER_WITH_EIGHT_LEGS.repeat(40));
         }
@@ -184,9 +184,9 @@ public class AddamsFamilyApplication {
 
                 // for (Person anAddams : theAddamsFamily) {  // replaced by Iterator
                 //       class     iterator-name   = collection-object.iterator()
-                Iterator<Person> allPeopleIterator = theAddamsFamily.iterator();
-                while(allPeopleIterator.hasNext()) {             // Loop while the Iterator has another object
-                    Person anAddams = allPeopleIterator.next();  // Get the next object from the iterator
+                Iterator<Person> personIterator = theAddamsFamily.iterator();
+                while(personIterator.hasNext()) {             // Loop while the Iterator has another object
+                    Person anAddams = personIterator.next();  // Get the next object from the iterator
                     personCount++;
                    System.out.printf("%s %2d. %-30s %-8s",borderIcon,personCount,anAddams.getName(),borderIcon);
                    if (personCount != theAddamsFamily.size()) {
@@ -211,7 +211,11 @@ public class AddamsFamilyApplication {
                 System.out.println("\nNumber of Addams' found containing " + whatTheyWant.getSearchValue() + " in name: " + listOfAddams.size());
 
                 // Loop through extracted entries and display them one at a time
-                for(Person anAddams : listOfAddams) {
+                //for(Person anAddams : listOfAddams) {
+                Iterator<Person> anIterator = theAddamsFamily.iterator();
+                while(anIterator.hasNext()) {
+                        Person anAddams = anIterator.next();
+
                         System.out.printf("%10d %-30s\n",anAddams.getId(),anAddams.getName());
                 }
         }
@@ -231,9 +235,9 @@ public class AddamsFamilyApplication {
                 // Loop through extracted entries, display each one and ask for new values
 
                 // for(Person anAddams : listOfAddams) {   // Replaced by Iterator
-                Iterator<Person> anIterator = listOfAddams.iterator();   // Define an Iterator for the Collection
-                while(anIterator.hasNext()) {                 // Loop while the Iterator has another object to process
-                        Person anAddams = anIterator.next();  // Retrieve the next object from the Iterator
+                ListIterator<Person> cousinItterator = theAddamsFamily.listIterator();// Define an Iterator for the Collection
+                while(cousinItterator.hasNext()) {// Loop while the Iterator has another object to process
+                        Person anAddams = cousinItterator.next(); // Retrieve the next object from the Iterator
 
                         // Show user the current name from extracted entries
                         System.out.println("Found: " + anAddams);
@@ -271,7 +275,7 @@ public class AddamsFamilyApplication {
                 // Replace the for-each with an Iterator so we don't get the ConcurrentModificationException
                 //         when removing the element from the List while iterating through
                 // for (Person anAddams : aListOfAddams) {
-                Iterator<Person> removeIterator = aListOfAddams.iterator();  // Define an Iterator for the collection
+                ListIterator<Person> removeIterator = aListOfAddams.listIterator();  // Define an Iterator for the collection
                 while(removeIterator.hasNext()) {    // Loop while the Iterator has a object to process
                         // Note use of the Iterator.remove() instead of List.remove()
                         Person anAddams = removeIterator.next();  // Retrieve the next object from the Iterator
@@ -413,10 +417,10 @@ public class AddamsFamilyApplication {
                 // Whenever you see the word 'index', think like a computer: last element is listname.size() - 1
                 //                                       start counting at 0
 
-                ListIterator<Person> personListIterator = theAddamsFamily.listIterator(theAddamsFamily.size());
-                while(personListIterator.hasPrevious()) {                     // Loop while there is previous object
-                        Person anotherAddams = personListIterator.previous(); //     Retrieve the previous object
-                        System.out.println(anotherAddams);                    //     and process it
+                ListIterator<Person> reverseIterator = theAddamsFamily.listIterator(theAddamsFamily.size());
+                while(reverseIterator.hasPrevious()) {
+                        Person previousAddams = reverseIterator.previous();
+                        System.out.println(previousAddams);
                 }
         }
         /********************************************************************************************
@@ -426,8 +430,24 @@ public class AddamsFamilyApplication {
          ********************************************************************************************/
         public void addANewAddams() {
                 // Code-Along TODO: Add code to implement this feature
-                System.out.println("\n" + "-".repeat(60) +"\n----- Sorry, this feature has not been implemented yet -----\n"
-                                        + "-".repeat(60) + "\n");
+                ListIterator<Person> addIterator = theAddamsFamily.listIterator();
+
+                System.out.println("Do you want to add this Addams from the database? (Y or N default is No");
+                String addResponse = userKeyboardDevice.nextLine().strip().toUpperCase();
+
+                if (addResponse.startsWith("Y")) {                           // if user wants to change value
+                        System.out.println("Please enter name: ");          //   Ask for new value
+                        String addName = userKeyboardDevice.nextLine().strip(); //   Get new value from user
+                        Person newPerson = new Person(addName);
+                        addIterator.add(newPerson);
+                        System.out.println("----- Name is: " + addName);// Confirm to user change was made
+                }
+                else {                                                          // If user does not want to change
+                        System.out.println("----- Name is unchanged -----");    //    display message to that effect
+                }
+
+//                System.out.println("\n" + "-".repeat(60) +"\n----- Sorry, this feature has not been implemented yet -----\n"
+//                                        + "-".repeat(60) + "\n");
         }
 
 } // End of ApplicationProgram class
